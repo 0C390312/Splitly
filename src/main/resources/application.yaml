@@ -1,0 +1,2 @@
+application:
+  hello-world: ${HELLO_WORLD}
