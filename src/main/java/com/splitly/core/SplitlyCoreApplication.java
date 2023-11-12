@@ -9,5 +9,4 @@ public class SplitlyCoreApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SplitlyCoreApplication.class, args);
 	}
-
 }
