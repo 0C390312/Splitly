@@ -15,6 +15,10 @@ Run the docker image with:
 ```shell
 docker run -e "HELLO_WORLD=bla-bla-bla" --name splitly-core -p 8080:8080 --rm splitly-core:latest
 ```
+Ckeck the app with:
+```shell
+curl http://localhost:8080
+```
 
 ## Environment Variables
 | Name         | Default value  | Required | Description                           |
