@@ -1,0 +1,40 @@
+openapi: 3.0.3
+
+info:
+  title: Splitly core
+  version: v1
+  description: Splitly core API
+
+servers:
+  - url: http://localhost:8081
+    description: Locally deployed server
+
+paths:
+  /groups/{groupId}/expenses:
+    post:
+      summary: create expense
+      operationId: createExpense
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          description: Group id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '201':
+          $ref: '#/components/responses/createExpenseResponse'
+
+components:
+  responses:
+    createExpenseResponse:
+      description: Expense response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/expenseResponse'
+
+  schemas:
+    expenseResponse:
+      $ref: schemas/expenseResponse.yaml

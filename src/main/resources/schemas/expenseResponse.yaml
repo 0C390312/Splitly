@@ -1,0 +1,28 @@
+id: Expense response
+description: Expense response
+type: object
+properties:
+  id:
+    type: string
+    format: uuid
+    description: Expense id
+  payerId:
+    type: string
+    format: uuid
+    description: Payer id
+  involvedUsersIds:
+    type: array
+    items:
+      type: string
+      format: uuid
+    description: Involved users ids
+  cost:
+    type: object
+    description: Expense cost
+    properties:
+      amount:
+        type: number
+        description: Amount
+      currency:
+        type: string
+        description: Currency
