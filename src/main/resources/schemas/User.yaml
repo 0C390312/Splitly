@@ -1,0 +1,16 @@
+description: User
+type: object
+properties:
+  id:
+    type: string
+    description: User id
+    format: uuid
+  name:
+    type: string
+    description: User name
+  email:
+    type: string
+    description: User email
+  externalId:
+    type: string
+    description: External id

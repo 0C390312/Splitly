@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.0.0
 
 info:
   title: Splitly core
@@ -14,6 +14,83 @@ paths:
     post:
       summary: create expense
       operationId: createExpense
+      tags:
+        - expense
+      parameters:
+        - $ref: '#/components/parameters/groupId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: schemas/Expense.yaml
+      responses:
+        '201':
+          description: Group created
+          content:
+            application/json:
+              schema:
+                $ref: schemas/Expense.yaml
+    get:
+      summary: get expenses
+      operationId: getExpenses
+      tags:
+        - expense
+      parameters:
+        - $ref: '#/components/parameters/groupId'
+      responses:
+        '200':
+          description: Expenses found
+          content:
+            application/json:
+              schema:
+                type: set
+                items:
+                  $ref: schemas/Expense.yaml
+
+  /groups/{groupId}/expenses/{expenseId}:
+    get:
+      summary: get expense
+      operationId: getExpenseById
+      tags:
+        - expense
+      parameters:
+        - $ref: '#/components/parameters/groupId'
+        - $ref: '#/components/parameters/expenseId'
+      responses:
+        '200':
+          description: Expense found
+          content:
+            application/json:
+              schema:
+                $ref: schemas/Expense.yaml
+
+  /groups:
+    post:
+      operationId: createGroup
+      summary: create group
+      tags:
+        - group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: schemas/Group.yaml
+      responses:
+        '201':
+          description: Group created
+          content:
+            application/json:
+              schema:
+                $ref: schemas/Group.yaml
+
+  /groups/{groupId}:
+    get:
+      summary: get group
+      operationId: getGroup
+      tags:
+        - group
       parameters:
         - name: groupId
           in: path
@@ -23,18 +100,131 @@ paths:
             type: string
             format: uuid
       responses:
+        '200':
+          description: Group found
+          content:
+            application/json:
+              schema:
+                $ref: schemas/Group.yaml
+
+  /groups/{groupId}/balances:
+    get:
+      summary: get group balances
+      operationId: getGroupBalances
+      tags:
+        - balance
+      parameters:
+        - $ref: '#/components/parameters/groupId'
+      responses:
+        '200':
+          description: Group balances found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: schemas/Debt.yaml
+
+  /groups/{groupId}/users:
+    post:
+      summary: add user to group
+      operationId: addUserToGroup
+      tags:
+        - group
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          description: Group id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+                format: uuid
+      responses:
         '201':
-          $ref: '#/components/responses/createExpenseResponse'
+          description: User added to group
+          content:
+            application/json:
+              schema:
+                $ref: schemas/Group.yaml
+
+  /users:
+    get:
+      summary: get users
+      operationId: getUsers
+      tags:
+        - user
+      responses:
+        '200':
+          description: Users found
+          content:
+            application/json:
+              schema:
+                $ref: schemas/Users.yaml
+    post:
+      summary: create user
+      tags:
+        - user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: schemas/User.yaml
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: schemas/User.yaml
+
+  /users/{userId}:
+    get:
+      tags:
+        - user
+      summary: get user
+      operationId: getUser
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: User id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: schemas/User.yaml
 
 components:
-  responses:
-    createExpenseResponse:
-      description: Expense response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/expenseResponse'
-
-  schemas:
-    expenseResponse:
-      $ref: schemas/expenseResponse.yaml
+  parameters:
+    groupId:
+      name: groupId
+      in: path
+      required: true
+      description: Group id
+      schema:
+        type: string
+        format: uuid
+    expenseId:
+      name: expenseId
+      in: path
+      required: true
+      description: Expense id
+      schema:
+        type: string
+        format: uuid

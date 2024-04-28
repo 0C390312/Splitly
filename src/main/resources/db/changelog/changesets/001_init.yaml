@@ -1,0 +1,116 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001_init
+      author: Bard
+      changes:
+        - sql:
+            dbms: postgres
+            sql: CREATE SCHEMA IF NOT EXISTS splitly_app;
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: external_id
+                  type: varchar(255)
+              - column:
+                  name: email
+                  type: varchar(255)
+        - createTable:
+            tableName: expenses
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: payer_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    tableName: users
+                    columnName: id
+              - column:
+                  name: amount
+                  type: decimal(10,2)
+              - column:
+                  name: currency
+                  type: varchar(3)
+              - column:
+                  name: created_at
+                  type: timestamp without time zone
+              - column:
+                  name: description  # Добавлено поле для описания
+                  type: text
+              - column:
+                  name: group_id  # Добавлена связь с группой
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    tableName: groups
+                    columnName: id
+        - createTable:
+            tableName: groups
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: description
+                  type: text
+        - createTable:
+            tableName: expense_users
+            columns:
+              - column:
+                  name: expense_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    tableName: expenses
+                    columnName: id
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    tableName: users
+                    columnName: id
+            primaryKey:
+              columnNames: expense_id, user_id
+              constraintName: expense_users_pk
+        - createTable:
+            tableName: user_groups
+            columns:
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    tableName: users
+                    columnName: id
+              - column:
+                  name: group_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    tableName: groups
+                    columnName: id
+            primaryKey:
+              columnNames: user_id, group_id
+              constraintName: user_groups_pk
