@@ -1,0 +1,18 @@
+id: Debt
+description: Debt
+type: object
+properties:
+  debtor:
+    description: debtor
+    type: object
+    $ref: User.yaml
+  creditor:
+    description: creditor
+    type: object
+    $ref: User.yaml
+  amount:
+    description: amount of debt
+    type: number
+  currency:
+    description: currency
+    type: string

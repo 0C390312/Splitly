@@ -1,0 +1,10 @@
+spring:
+  datasource:
+      username: admin
+      password: admin
+      driver-class-name: "org.postgresql.Driver"
+  jpa:
+    hibernate:
+      ddl-auto: none
+application:
+  hello-world: ${HELLO_WORLD:Hello World}

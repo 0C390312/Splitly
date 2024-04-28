@@ -10,19 +10,15 @@ properties:
     type: string
     format: uuid
     description: Payer id
-  involvedUsersIds:
+  participants:
+    description: Involved users ids
     type: array
     items:
       type: string
       format: uuid
-    description: Involved users ids
-  cost:
-    type: object
+  amount:
+    type: number
     description: Expense cost
-    properties:
-      amount:
-        type: number
-        description: Amount
-      currency:
-        type: string
-        description: Currency
+  currency:
+    type: string
+    description: Currency

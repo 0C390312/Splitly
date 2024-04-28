@@ -1,0 +1,19 @@
+description: Group request
+type: object
+properties:
+  id:
+    type: string
+    format: uuid
+    description: Group id
+  name:
+    type: string
+    description: Group name
+  description:
+    type: string
+    description: Group description
+  users:
+    type: array
+    description: Group users
+    items:
+      type: string
+      format: uuid

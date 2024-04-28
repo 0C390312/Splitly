@@ -18,7 +18,7 @@ docker build -t splitly-core:latest .
 Run db image
 
 ```shell
-docker-compose -f docker-compose-dev.yml up -d
+docker-compose -f docker-compose.yml up -d
 ```
 
 Run the docker image with:
