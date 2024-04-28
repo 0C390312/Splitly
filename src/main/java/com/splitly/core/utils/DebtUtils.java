@@ -1,4 +1,4 @@
-package com.splitly.core.service;
+package com.splitly.core.utils;
 
 import static java.math.BigDecimal.ZERO;
 import static java.math.RoundingMode.HALF_UP;

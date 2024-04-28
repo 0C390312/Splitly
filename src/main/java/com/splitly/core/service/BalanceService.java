@@ -1,6 +1,7 @@
 package com.splitly.core.service;
 
-import com.splitly.core.service.DebtUtils.Debt;
+import com.splitly.core.utils.DebtUtils;
+import com.splitly.core.utils.DebtUtils.Debt;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;

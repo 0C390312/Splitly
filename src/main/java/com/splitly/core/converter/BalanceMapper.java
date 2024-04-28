@@ -1,7 +1,7 @@
 package com.splitly.core.converter;
 
 import com.splitly.core.model.Debt;
-import com.splitly.core.service.DebtUtils;
+import com.splitly.core.utils.DebtUtils;
 import java.util.List;
 import org.mapstruct.Mapper;
 

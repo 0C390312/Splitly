@@ -1,17 +1,18 @@
 package com.splitly.core.service;
 
-import static com.splitly.core.service.CalculatorTest.expense;
-import static com.splitly.core.service.CalculatorTest.user;
-import static com.splitly.core.service.DebtUtils.settleDebts;
+import static com.splitly.core.utils.DebtUtils.settleDebts;
 import static java.util.UUID.randomUUID;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
+import com.splitly.core.dto.Expense;
+import com.splitly.core.dto.Group;
+import com.splitly.core.dto.User;
 import java.math.BigDecimal;
 import java.util.Set;
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 class DebtUtilsTest {
-
 
   @Test
   void test() {
@@ -31,7 +32,7 @@ class DebtUtilsTest {
   }
 
   @Test
-  void equalAmmount() {
+  void equalAmount() {
     var user1 = user("u1");
     var user2 = user("u2");
 
@@ -43,5 +44,20 @@ class DebtUtilsTest {
     var expenses = Set.of(expense1, expense2);
     var debts = settleDebts(expenses);
     assertThat(debts).hasSize(0);
+  }
+
+  public static User user(String name) {
+    return User.builder().name(name).id(randomUUID()).build();
+  }
+
+  public static Expense expense(UUID groupId, User payer, Set<User> participants, BigDecimal amount, String currency) {
+    return Expense.builder()
+      .id(randomUUID())
+      .group(Group.builder().id(groupId).build())
+      .payer(payer)
+      .participants(participants)
+      .amount(amount)
+      .currency(currency)
+      .build();
   }
 }
